@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  retain_card: false
+  flight_id: 1
+  card_id: 1
+
+two:
+  email: MyString
+  retain_card: false
+  flight_id: 1
+  card_id: 1
