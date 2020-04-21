@@ -14,6 +14,8 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/new
   def new
+    @flight = Flight.find(params[:flight_id])
+    @id = @flight.id 
     @transaction = Transaction.new
   end
 

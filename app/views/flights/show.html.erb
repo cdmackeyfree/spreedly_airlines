@@ -15,5 +15,5 @@
   <%= @flight.destination %>
 </p>
 
-<%= link_to 'Edit', edit_flight_path(@flight) %> |
+<%= link_to 'Purchase', {:controller=> "transactions", :action=> "new", :flight_id=> @flight.id}, class: "btn btn-primary" %>
 <%= link_to 'Back', flights_path %>
