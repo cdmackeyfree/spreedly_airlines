@@ -17,6 +17,8 @@ class TransactionsController < ApplicationController
     @flight = Flight.find(params[:flight_id])
     @id = @flight.id 
     @transaction = Transaction.new
+
+    env = Spreedly::Environment.new(ENV["ENV_KEY"], ENV["ACCESS_SECRET"])
   end
 
   # GET /transactions/1/edit
