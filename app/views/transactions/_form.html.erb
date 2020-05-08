@@ -1,32 +1,63 @@
 <%= form_for(transaction) do |f| %>
   <% if transaction.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
-
-      <ul>
-      <% transaction.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <div id="error_explanation">
+  <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+  
+  <ul>
+  <% transaction.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+  <% end %>
+  </ul>
+  </div>
+  <% end %>
+  
+  <div class="field">
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  </div>
+  
+  <div class="field">
+  <%= f.label :retain_card %>
+  <%= f.check_box :retain_card %>
+  </div>
+  
+  
+  <%= f.hidden_field :amount,:value => @flight.price %>
+  <%= f.hidden_field :flight_id, :value => @id %>
   <% end %>
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
+  <button id="ready-to-pay" onclick="SpreedlyExpress.openView();">Buy Now</button>
 
-  <div class="field">
-    <%= f.label :retain_card %>
-    <%= f.check_box :retain_card %>
-  </div>
+<script src="https://core.spreedly.com/iframe/express-2.min.js" id="express-script"></script>
+<script type="text/javascript">
 
-  <div class="field">
-    <%= f.label :card_id %>
-    <%= f.number_field :card_id %>
-  </div>
+var environmentKey= "SLHq8nJlAL2JBfIjBvT6RjHhEWp"
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+var options = {
+company_name: "Spreedly Air",
+sidebar_top_description: "We Fly Like the Penguins",
+sidebar_bottom_description: "Total",
+amount: "<%= "$#{@flight.price}" %>"
+}
+
+var enableButton = function(){
+document.getElementById("ready-to-pay").disabled = false;
+}
+SpreedlyExpress.onInit(enableButton);
+
+var handlePaymentToken = function(token, formData) {
+document.getElementById('spreedly-name').value = formData["full_name"]
+document.getElementById('spreedly-exp-month').value = formData["month"]
+document.getElementById('spreedly-exp-year').value = formData["year"]
+document.getElementById('new_transaction');
+document.getElementById('spreedly-modal-form').submit;
+}
+SpreedlyExpress.onPaymentMethod(handlePaymentToken);
+
+SpreedlyExpress.init(environmentKey,options);
+</script>
+
+
+
+
+

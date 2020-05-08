@@ -1,5 +1,14 @@
 <h1>Purchase Flight</h1>
 
+<h4>Flight to <%= @flight.destination %></h4>
+<h4>Price <%= @flight.price %></h4>
+
+<br />
+
+<h2>Passenger Information</h2>
+
+
+
 <%= render 'form', transaction: @transaction %>
 
 <%= link_to 'Back', transactions_path %>
